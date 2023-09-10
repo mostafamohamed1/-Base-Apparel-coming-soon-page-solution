@@ -1,14 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap");
 
 :root {
-  --clr-red-200: hsl(0, 36%, 70%);
-  --clr-red-400: hsl(0, 93%, 68%);
-  --clr-red-700: hsl(0, 6%, 24%);
+  --clr-red-200: #ce9797;
+  --clr-red-400: #f96262;
+  --clr-red-700: #413a3a;
 
   --gradient-1: linear-gradient(135deg, hsl(0, 0%, 100%), hsl(0, 100%, 98%));
   --gradient-2: linear-gradient(135deg, hsl(0, 80%, 86%), hsl(0, 74%, 74%));
 
   --ff: "Josefin Sans", sans-serif;
+}
+
+@mixin breakpoint {
+  @media screen and (min-width: "800px") {
+    @content;
+  }
 }
 
 * {
@@ -32,167 +38,155 @@ img {
   display: block;
 }
 
-span {
-  display: block;
-  color: var(--clr-red-200);
-  font-weight: 300;
-}
-
-h1 {
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--clr-red-700);
-}
-
 main {
-  width: 100%;
-  min-height: 100vh;
-  background-image: var(--gradient-1);
-}
+  --gap: 10px;
 
-@media screen and (min-width: 391px) {
-  main {
+  @include breakpoint {
+    height: 100vh;
+    width: 100%;
     display: grid;
-    grid-template-areas:
-      "lg lg lg  im im im im"
-      "co co co  im im im im"
-      "co co co  im im im im";
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    column-gap: calc(2 * var(--gap));
+    row-gap: var(--gap);
   }
+  background-image: var(--gradient-1), var(--gradient-2);
 }
 
 .logo {
-  padding-block: 30px;
-  padding-inline-start: 37px;
+  grid-column: 2/6;
+  grid-row: 1/2;
+
+  @include breakpoint {
+    align-self: end;
+    padding: 0;
+  }
+
+  padding: 2em;
+  align-self: center;
+}
+
+.hero-img {
+  grid-column: 8/-1;
+  grid-row: 1 / -1;
+
+  & img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .content {
-  padding-bottom: 4em;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-@media screen and (min-width: 391px) {
-  .logo {
-    grid-area: lg;
-  }
-
-  .img {
-    grid-area: im;
-  }
-
-  .img img {
-    height: 100%;
-  }
-  .content {
-    padding-bottom: 0;
-    grid-area: co;
-    display: block;
-    width: 60%;
-  }
-
-  .logo,
-  .content {
-    padding-left: 150px;
-  }
-}
-
-.content h1 {
-  line-height: 1;
-  margin-top: 65px;
-  letter-spacing: 10px;
-  text-align: center;
-  font-size: 2.5em;
-}
-
-.content p {
-  padding-top: 30px;
-  padding-inline: 25px;
-  text-align: center;
-  font-weight: 400;
-  font-size: 14px;
-  color: var(--clr-red-200);
-}
-
-.content form {
-  width: 100%;
-  padding-top: 40px;
-  padding-inline: 32px;
-  display: block;
-}
-
-.form-control {
-  position: relative;
-}
-
-form .email {
-  font-family: var(--ff);
-  height: 48px;
-  display: inline-block;
-  padding: 1em;
-  border: 1px solid var(--clr-red-200);
-  border-radius: 48px;
-  width: 100%;
-}
-
-form .email:focus {
-  outline: none;
-}
-
-form .email::placeholder {
-  color: var(--clr-red-200);
-  opacity: 0.5;
-}
-
-form button {
-  width: 68px;
-  height: 48px;
-  display: inline-block;
-  border-radius: 48px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: var(--gradient-2);
-  border: none;
-  box-shadow: 0 0 10px 2px hsla(0, 36%, 70%, 0.2);
-  cursor: pointer;
-}
-
-form .form-control > img {
-  position: absolute;
-  right: 80px;
-  top: 40%;
-  translate: 0 -50%;
-  display: none;
-}
-
-form label {
-  font-size: 12px;
-  padding-left: 1em;
-  color: var(--clr-red-400);
-  display: none;
-}
-
-input:not(:focus):invalid + img {
-  display: inline-block;
-}
-
-.form-control input:not(:focus):invalid ~ label {
-  display: block;
-}
-
-@media screen and (min-width: 391px) {
-  .content form,
-  .content p,
-  .content h1 {
+  display: grid;
+  @include breakpoint {
+    grid-column: 2/8;
+    grid-row: 2 / -1;
+    row-gap: var(--gap);
+    column-gap: calc(5 * var(--gap));
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    max-width: none;
     text-align: left;
-    padding-left: 0;
   }
-  .content h1 {
+  margin: 0 auto 3em;
+  max-width: 70%;
+  text-align: center;
+
+  & .heading-1 {
+    font-size: 3em;
+    font-weight: 600;
+    color: var(--clr-red-700);
+    text-transform: uppercase;
     line-height: 1.2;
-    font-size: 4em;
+    letter-spacing: 12px;
+    @include breakpoint {
+      grid-row: 2/4;
+      margin-block: 0;
+    }
+    margin-block: 1em;
+
+    & span {
+      display: block;
+      color: var(--clr-red-200);
+      font-weight: 300;
+    }
+  }
+
+  & .text {
+    @include breakpoint {
+      grid-row: 4/5;
+      color: var(--clr-red-200);
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+    margin-bottom: 1em;
+    color: var(--clr-red-200);
+    font-weight: 400;
+  }
+
+  & form {
+    grid-row: 5/6;
+    width: 100%;
+
+    & .form-control {
+      --height: 55px;
+      position: relative;
+
+      & .email {
+        --b-clr: rgb(65 58 58/ 0.4);
+        padding: 1em;
+        height: var(--height);
+        width: 100%;
+        display: inline-block;
+        border: 1px solid var(--b-clr);
+        border-radius: var(--height);
+        font-family: var(--ff);
+
+        &::placeholder {
+          color: var(--b-clr);
+        }
+      }
+
+      & .email:not(:focus):invalid + .icon-err,
+      & .email:not(:focus):invalid ~ label {
+        display: inline-block;
+      }
+
+      & .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: calc(var(--height) * 1.7);
+        height: var(--height);
+        border: none;
+        background-image: var(--gradient-2);
+        border-radius: var(--height);
+        cursor: pointer;
+      }
+
+      & .icon-err {
+        position: absolute;
+        right: calc(var(--height) * 2);
+        top: 30%;
+        transform: translateY(-50%);
+        display: none;
+      }
+
+      & label {
+        padding-left: 1em;
+        font-size: 0.82em;
+        color: var(--clr-red-400);
+        display: none;
+      }
+    }
+  }
+
+  & .heading-1,
+  & .text,
+  & form {
+    grid-column: 1/4;
   }
 }
